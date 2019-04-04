@@ -19,7 +19,7 @@ using System.Linq;
 // More details at http://stackoverflow.com/questions/646974/is-there-a-standard-technique-for-packing-binary-data-into-a-utf-16-string
 //
 
-namespace Comet.Common.Utilities
+namespace JDanielSmith
 {
 	public static partial class Convert
 	{
