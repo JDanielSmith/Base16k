@@ -19,3 +19,12 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+----
+
+This code is hereby placed in the Public Domain.
+Jim Beveridge, November 29, 2011.
+
+C# port of http://qualapps.blogspot.com/2011/11/base64-for-unicode-utf16.html
+This code is hereby placed in the Public Domain.
+J. Daniel Smith, February 23, 2015
