@@ -19,6 +19,8 @@ C# port of http://qualapps.blogspot.com/2011/11/base64-for-unicode-utf16.html
 This code is hereby placed in the Public Domain.
 J. Daniel Smith, February 23, 2015
 
+NuGet package details added by Joel Verhagen on January 30, 2021.
+
 More details at http://stackoverflow.com/questions/646974/is-there-a-standard-technique-for-packing-binary-data-into-a-utf-16-string
     </Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
