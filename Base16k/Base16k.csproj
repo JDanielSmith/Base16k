@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks Condition="'$(CoreOnly)' != 'true'">netstandard1.0;net40</TargetFrameworks>
+    <TargetFrameworks Condition="'$(CoreOnly)' == 'true'">netstandard1.0</TargetFrameworks>
+    <RootNamespace>JDanielSmith</RootNamespace>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+
+    <Version>1.0.0</Version>
+    <Authors>Markus Scherer, Jim Beveridge, J. Daniel Smith, Joel Verhagen</Authors>
+    <Description>
+Base16k.cpp : Variant of base64 used to efficiently encode  binary into Unicode UTF16 strings. Based on work by
+Markus Scherer at https://sites.google.com/site/markusicu/unicode/base16k
+
+This code is hereby placed in the Public Domain.
+Jim Beveridge, November 29, 2011.
+
+C# port of http://qualapps.blogspot.com/2011/11/base64-for-unicode-utf16.html
+This code is hereby placed in the Public Domain.
+J. Daniel Smith, February 23, 2015
+
+More details at http://stackoverflow.com/questions/646974/is-there-a-standard-technique-for-packing-binary-data-into-a-utf-16-string
+    </Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/JDanielSmith/Base16k</PackageProjectUrl>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
+  </ItemGroup>
+
+</Project>

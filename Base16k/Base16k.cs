@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Text.RegularExpressions;
-
 
 //
 // Base16k.cpp : Variant of base64 used to efficiently encode  binary into Unicode UTF16 strings. Based on work by
@@ -14,6 +12,8 @@ using System.Text.RegularExpressions;
 // C# port of http://qualapps.blogspot.com/2011/11/base64-for-unicode-utf16.html
 // This code is hereby placed in the Public Domain.
 // J. Daniel Smith, February 23, 2015
+//
+// NuGet package details added by Joel Verhagen on January 30, 2021.
 //
 // More details at http://stackoverflow.com/questions/646974/is-there-a-standard-technique-for-packing-binary-data-into-a-utf-16-string
 //
@@ -27,7 +27,7 @@ public static partial class Convert
 	/// </summary>
 	public static string ToBase16KString(byte[] inArray)
 	{
-		if (inArray == null) throw new ArgumentNullException("inArray");
+		if (inArray == null) throw new ArgumentNullException(nameof(inArray));
 
 		int len = inArray.Length;
 
@@ -100,13 +100,23 @@ public static partial class Convert
 		string s = input;
 
 		// read the length
-		var r = new Regex(@"^\d+", RegexOptions.None, matchTimeout: TimeSpan.FromMilliseconds(100));
-		Match m = r.Match(s);
-		if (!m.Success)
-			throw new FormatException("Unable to find a length value.");
+		var lengthEnd = -1;
+		for (var l = 0; l < s.Length; l++)
+		{
+			if (s[l] >= '0' && s[l] <= '9')
+			{
+				lengthEnd = l;
+			}
+			else
+			{
+				break;
+			}
+		}
+
+		if (lengthEnd < 0) throw new FormatException("Unable to find a length value.");
 
 		int length;
-		if (!Int32.TryParse(m.Value, out length))
+		if (!Int32.TryParse(s.Substring(0, lengthEnd + 1), out length))
 			throw new FormatException("Unable to parse the length string.");
 
 		var buf = new List<byte>(length);
