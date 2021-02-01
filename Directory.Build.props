@@ -1,0 +1,5 @@
+<Project>
+  <PropertyGroup>
+    <CoreOnly Condition="'$(CoreOnly)' == '' and !$([MSBuild]::IsOSPlatform('Windows'))">true</CoreOnly>
+  </PropertyGroup>
+</Project>
