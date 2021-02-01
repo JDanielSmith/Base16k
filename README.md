@@ -1,5 +1,5 @@
 # Base16k
-More efficient encoding of binary data in a **Unicode** string
+More efficient encoding of binary data in a **Unicode** (i.e., UTF-16 as is common on Windows and the default in C#) string
 
 Based on work by Markus Scherer at https://sites.google.com/site/markusicu/unicode/base16k
 
