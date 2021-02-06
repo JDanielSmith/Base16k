@@ -109,7 +109,7 @@ namespace JDanielSmith
             public void RejectNullInput()
             {
                 var ex = Assert.Throws<ArgumentNullException>(() => Convert.FromBase16KString(null));
-                Assert.Equal("input", ex.ParamName);
+                Assert.Equal("s", ex.ParamName);
             }
         }
     }

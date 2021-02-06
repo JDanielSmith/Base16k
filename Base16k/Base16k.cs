@@ -23,8 +23,11 @@ namespace JDanielSmith
 public static partial class Convert
 {
 	/// <summary>
-	/// Encode a binary array into a Base16k string for Unicode.
+	/// Converts an array of 8-bit unsigned integers to its equivalent string representation
+	//  that is encoded with base-16k digits.
 	/// </summary>
+	/// <param name="inArray">An array of 8-bit unsigned integers.</param>
+	/// <returns>The string representation, in base 16k, of the contents of inArray.</returns>
 	public static string ToBase16KString(byte[] inArray)
 	{
 		if (inArray == null) throw new ArgumentNullException(nameof(inArray));
@@ -93,11 +96,40 @@ public static partial class Convert
 		return sb.ToString();
 	}
 
-	static byte[] FromBase16KString_(string input)
+	/// <summary>
+	/// Converts a subset of an array of 8-bit unsigned integers to its equivalent string
+	//  representation that is encoded with base-16k digits. Parameters specify the subset
+	//  as an offset in the input array, and the number of elements in the array to convert.
+	/// </summary>
+	/// <param name="inArray">An array of 8-bit unsigned integers.</param>
+	/// <param name="offset">An offset in inArray.</param>
+	/// <param name="length">The number of elements of inArray to convert.</param>
+	/// <returns>The string representation in base 16k of length elements of inArray, starting at position offset.</returns>
+	public static string ToBase16KString(byte[] inArray, int offset, int length)
 	{
-		if (input == null) throw new ArgumentNullException("input");
+		throw new NotImplementedException();
+	}
 
-		string s = input;
+	/// <summary>
+	/// Converts a subset of an 8-bit unsigned integer array to an equivalent subset
+	/// of a Unicode character array encoded with base-16k digits. Parameters specify
+	/// the subsets as offsets in the input and output arrays, and the number of elements
+	/// in the input array to convert.
+	/// </summary>
+	/// <param name="inArray">An input array of 8-bit unsigned integers.</param>
+	/// <param name="offsetIn">A position within inArray.</param>
+	/// <param name="length">The number of elements of inArray to convert.</param>
+	/// <param name="outArray">An output array of Unicode characters.</param>
+	/// <param name="offsetOut">A position within outArray.</param>
+	/// <returns>A 32-bit signed integer containing the number of bytes in outArray.</returns>
+	public static int ToBase16KCharArray(byte[] inArray, int offsetIn, int length, char[] outArray, int offsetOut)
+	{
+		throw new NotImplementedException();
+	}
+
+	static byte[] FromBase16KString_(string s)
+	{
+		if (s == null) throw new ArgumentNullException("s");
 
 		// read the length
 		var lengthEnd = -1;
@@ -188,16 +220,19 @@ public static partial class Convert
 		}
 
 		return buf.ToArray();
-	}
+	} 
 
 	/// <summary>
-	///  Decode a Base16k string for Unicode into a binary array.
+	/// Converts the specified string, which encodes binary data as base-16k digits, to
+	/// an equivalent 8-bit unsigned integer array.
 	/// </summary>
-	public static byte[] FromBase16KString(string input)
+	/// <param name="input">The string to convert.</param>
+	/// <returns>An array of 8-bit unsigned integers that is equivalent to s.</returns>
+	public static byte[] FromBase16KString(string s)
 	{
 		try
 		{
-			return FromBase16KString_(input);
+			return FromBase16KString_(s);
 		}
 		catch (OverflowException oe)
 		{
@@ -205,5 +240,19 @@ public static partial class Convert
 			throw new FormatException("Invalid data.", oe);
 		}
 	}
-}
+
+	/// <summary>
+	/// Converts a subset of a Unicode character array, which encodes binary data as
+	/// base-16k digits, to an equivalent 8-bit unsigned integer array. Parameters specify
+	/// the subset in the input array and the number of elements to convert.
+	/// </summary>
+	/// <param name="inArray">A Unicode character array.</param>
+	/// <param name="offset">A position within inArray.</param>
+	/// <param name="length">The number of elements in inArray to convert.</param>
+	/// <returns>An array of 8-bit unsigned integers equivalent to length elements at position offset in inArray.</returns>
+	public static byte[] FromBase64CharArray(char[] inArray, int offset, int length)
+	{
+		throw new NotImplementedException();
+	}
+	}
 }
