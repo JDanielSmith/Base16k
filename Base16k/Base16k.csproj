@@ -23,7 +23,7 @@ NuGet package details added by Joel Verhagen on January 30, 2021.
 
 More details at http://stackoverflow.com/questions/646974/is-there-a-standard-technique-for-packing-binary-data-into-a-utf-16-string
     </Description>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageLicenseExpression>Unlicense</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/JDanielSmith/Base16k</PackageProjectUrl>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
