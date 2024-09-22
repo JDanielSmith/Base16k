@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Text;
 
 //
 // Base16k.cpp : Variant of base64 used to efficiently encode  binary into Unicode UTF16 strings. Based on work by
@@ -20,7 +18,7 @@ using System.Text;
 
 namespace JDanielSmith
 {
-public static partial class Convert
+	public static partial class Convert
 {
 	/// <summary>
 	/// Converts an array of 8-bit unsigned integers to its equivalent string representation
@@ -98,8 +96,8 @@ public static partial class Convert
 
 	/// <summary>
 	/// Converts a subset of an array of 8-bit unsigned integers to its equivalent string
-	//  representation that is encoded with base-16k digits. Parameters specify the subset
-	//  as an offset in the input array, and the number of elements in the array to convert.
+	///  representation that is encoded with base-16k digits. Parameters specify the subset
+	///  as an offset in the input array, and the number of elements in the array to convert.
 	/// </summary>
 	/// <param name="inArray">An array of 8-bit unsigned integers.</param>
 	/// <param name="offset">An offset in inArray.</param>

@@ -1,11 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Xunit;
-
 namespace JDanielSmith
 {
-    public class ConvertTest
+	public class ConvertTest
     {
         [Theory]
         [MemberData(nameof(TripsBytesData))]
