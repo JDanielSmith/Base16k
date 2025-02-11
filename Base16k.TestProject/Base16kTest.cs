@@ -1,4 +1,6 @@
-namespace JDanielSmith;
+using Base16k;
+
+namespace Base16k.TestProject;
 
 public sealed class ConvertTest
 {
@@ -50,13 +52,6 @@ public sealed class ConvertTest
         {
             Assert.Equal("0", Convert.ToBase16KString(new byte[0]));
         }
-
-        [Fact]
-        public void RejectNullInput()
-        {
-            var ex = Assert.Throws<ArgumentNullException>(() => Convert.ToBase16KString(null));
-            Assert.Equal("inArray", ex.ParamName);
-        }
     }
 
     public class TheFromBase16KStringMethod
@@ -98,13 +93,6 @@ public sealed class ConvertTest
         {
             var ex = Assert.Throws<FormatException>(() => Convert.FromBase16KString("9999999999999999999999竜趶腧慚"));
             Assert.Equal("Unable to parse the length string.", ex.Message);
-        }
-
-        [Fact]
-        public void RejectNullInput()
-        {
-            var ex = Assert.Throws<ArgumentNullException>(() => Convert.FromBase16KString(null));
-            Assert.Equal("s", ex.ParamName);
         }
     }
 }
