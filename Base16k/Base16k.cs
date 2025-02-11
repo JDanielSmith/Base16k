@@ -16,13 +16,13 @@
 // More details at http://stackoverflow.com/questions/646974/is-there-a-standard-technique-for-packing-binary-data-into-a-utf-16-string
 //
 
-namespace JDanielSmith;
+namespace Base16k;
 
 public static partial class Convert
 {
 	/// <summary>
 	/// Converts an array of 8-bit unsigned integers to its equivalent string representation
-	//  that is encoded with base-16k digits.
+	///  that is encoded with base-16k digits.
 	/// </summary>
 	/// <param name="inArray">An array of 8-bit unsigned integers.</param>
 	/// <returns>The string representation, in base 16k, of the contents of inArray.</returns>
@@ -32,8 +32,8 @@ public static partial class Convert
 
 		int len = inArray.Length;
 
-		var sb = new StringBuilder(len * 6 / 5);
-		sb.Append(len);
+		StringBuilder sb = new(len * 6 / 5);
+		_ = sb.Append(len);
 
 		int code = 0;
 
@@ -49,7 +49,7 @@ public static partial class Convert
 				case 1:
 					code |= byteValue >> 2;
 					code += 0x5000;
-					sb.Append(System.Convert.ToChar(code));
+					_ = sb.Append(System.Convert.ToChar(code));
 					code = (byteValue & 3) << 12;
 					break;
 
@@ -60,7 +60,7 @@ public static partial class Convert
 				case 3:
 					code |= byteValue >> 4;
 					code += 0x5000;
-					sb.Append(System.Convert.ToChar(code));
+					_ = sb.Append(System.Convert.ToChar(code));
 					code = (byteValue & 0xf) << 10;
 					break;
 
@@ -71,16 +71,18 @@ public static partial class Convert
 				case 5:
 					code |= byteValue >> 6;
 					code += 0x5000;
-					sb.Append(System.Convert.ToChar(code));
+					_ = sb.Append(System.Convert.ToChar(code));
 					code = (byteValue & 0x3f) << 8;
 					break;
 
 				case 6:
 					code |= byteValue;
 					code += 0x5000;
-					sb.Append(System.Convert.ToChar(code));
+					_ = sb.Append(System.Convert.ToChar(code));
 					code = 0;
 					break;
+
+				default: throw new InvalidOperationException("Unexpected value for i.");
 			}
 		}
 
@@ -88,7 +90,7 @@ public static partial class Convert
 		if (len % 7 != 0)
 		{
 			code += 0x5000;
-			sb.Append(System.Convert.ToChar(code));
+			_ = sb.Append(System.Convert.ToChar(code));
 		}
 
 		return sb.ToString();
@@ -131,7 +133,7 @@ public static partial class Convert
 		var lengthEnd = -1;
 		for (var l = 0; l < s.Length; l++)
 		{
-			if (s[l] >= '0' && s[l] <= '9')
+			if (s[l] is >= '0' and <= '9')
 			{
 				lengthEnd = l;
 			}
@@ -140,17 +142,16 @@ public static partial class Convert
 				break;
 			}
 		}
-
-		if (lengthEnd < 0) throw new FormatException("Unable to find a length value.");
-
-		if (!Int32.TryParse(s.Substring(0, lengthEnd + 1), out var length))
+		if (lengthEnd < 0) { throw new FormatException("Unable to find a length value."); }
+		if (!Int32.TryParse(s.AsSpan(0, lengthEnd + 1), out var length))
+		{
 			throw new FormatException("Unable to parse the length string.");
+		}
 
-		var buf = new List<byte>(length);
+		List<byte> buf = new(length);
 
 		int pos = 0;  // position in s
-		while ((pos < s.Length) && (s[pos] >= '0' && s[pos] <= '9'))
-			++pos;
+		while (pos < s.Length && s[pos] >= '0' && s[pos] <= '9') { ++pos; } // skip the length
 
 		// decode characters to bytes
 		int i = 0;    // byte position modulo 7 (0..6 wrapping around)
@@ -162,8 +163,7 @@ public static partial class Convert
 			if (((1 << i) & 0x2b) != 0)
 			{
 				// fetch another Han character at i=0, 1, 3, 5
-				if (pos >= s.Length)
-					throw new FormatException("Too few Han characters representing binary data.");
+				if (pos >= s.Length) { throw new FormatException("Too few Han characters representing binary data."); }
 
 				code = s[pos++] - 0x5000;
 			}
@@ -207,14 +207,14 @@ public static partial class Convert
 					byteValue = System.Convert.ToByte(code & 0xff);
 					buf.Add(byteValue);
 					break;
+
+				default: throw new InvalidOperationException("Unexpected value for i.");
 			}
 
-			// advance to the next byte position
-			if (++i == 7)
-				i = 0;
+			if (++i == 7) { i = 0; } // advance to the next byte position
 		}
 
-		return buf.ToArray();
+		return [.. buf];
 	}
 
 	/// <summary>
