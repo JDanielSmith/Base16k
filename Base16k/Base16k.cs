@@ -16,9 +16,9 @@
 // More details at http://stackoverflow.com/questions/646974/is-there-a-standard-technique-for-packing-binary-data-into-a-utf-16-string
 //
 
-namespace JDanielSmith
-{
-	public static partial class Convert
+namespace JDanielSmith;
+
+public static partial class Convert
 {
 	/// <summary>
 	/// Converts an array of 8-bit unsigned integers to its equivalent string representation
@@ -28,7 +28,7 @@ namespace JDanielSmith
 	/// <returns>The string representation, in base 16k, of the contents of inArray.</returns>
 	public static string ToBase16KString(byte[] inArray)
 	{
-		if (inArray == null) throw new ArgumentNullException(nameof(inArray));
+		ArgumentNullException.ThrowIfNull(inArray);
 
 		int len = inArray.Length;
 
@@ -127,8 +127,6 @@ namespace JDanielSmith
 
 	static byte[] FromBase16KString_(string s)
 	{
-		if (s == null) throw new ArgumentNullException("s");
-
 		// read the length
 		var lengthEnd = -1;
 		for (var l = 0; l < s.Length; l++)
@@ -145,8 +143,7 @@ namespace JDanielSmith
 
 		if (lengthEnd < 0) throw new FormatException("Unable to find a length value.");
 
-		int length;
-		if (!Int32.TryParse(s.Substring(0, lengthEnd + 1), out length))
+		if (!Int32.TryParse(s.Substring(0, lengthEnd + 1), out var length))
 			throw new FormatException("Unable to parse the length string.");
 
 		var buf = new List<byte>(length);
@@ -218,7 +215,7 @@ namespace JDanielSmith
 		}
 
 		return buf.ToArray();
-	} 
+	}
 
 	/// <summary>
 	/// Converts the specified string, which encodes binary data as base-16k digits, to
@@ -228,6 +225,8 @@ namespace JDanielSmith
 	/// <returns>An array of 8-bit unsigned integers that is equivalent to s.</returns>
 	public static byte[] FromBase16KString(string s)
 	{
+		ArgumentNullException.ThrowIfNull(s);
+
 		try
 		{
 			return FromBase16KString_(s);
@@ -251,6 +250,5 @@ namespace JDanielSmith
 	public static byte[] FromBase64CharArray(char[] inArray, int offset, int length)
 	{
 		throw new NotImplementedException();
-	}
 	}
 }
