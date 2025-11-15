@@ -1,0 +1,13 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path="LICENSE" />
+    <File Path="README.md" />
+  </Folder>
+  <Folder Name="/Solution Items/docs/">
+    <File Path="docs/Base16k - Markus ICU_Unicode.html" />
+    <File Path="docs/Technical Blog for Jim Beveridge_ Base64 for Unicode UTF16.html" />
+  </Folder>
+  <Project Path="Base16k.TestProject/Base16k.TestProject.csproj" />
+  <Project Path="Base16k/Base16k.csproj" />
+</Solution>
