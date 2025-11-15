@@ -1,6 +1,6 @@
-using Base16k;
-
 namespace Base16k.TestProject;
+
+#pragma warning disable CA1034 // Nested types should not be visible
 
 public sealed class ConvertTest
 {
@@ -10,11 +10,13 @@ public sealed class ConvertTest
     {
         // Arrange
         var expected = new byte[length];
-        var random = new Random(seed);
-        random.NextBytes(expected);
+		Random random = new(seed);
+#pragma warning disable CA5394 // Do not use insecure randomness
+		random.NextBytes(expected);
+#pragma warning restore CA5394 // Do not use insecure randomness
 
-        // Act
-        var encoded = Convert.ToBase16KString(expected);
+		// Act
+		var encoded = Convert.ToBase16KString(expected);
         var actual = Convert.FromBase16KString(encoded);
 
         // Assert
@@ -26,11 +28,13 @@ public sealed class ConvertTest
         .Select(i => (int)Math.Pow(2, i))
         .SelectMany(l =>
         {
-            var random = new Random(l);
-            return Enumerable
+			Random random = new(l);
+#pragma warning disable CA5394 // Do not use insecure randomness
+			return Enumerable
                 .Range(0, 2)
                 .Select(i => new object[] { l, random.Next() });
-        });
+#pragma warning restore CA5394 // Do not use insecure randomness
+		});
 
     public class TheToBase16KStringMethod
     {
@@ -50,12 +54,12 @@ public sealed class ConvertTest
         [Fact]
         public void ConvertsEmptyBytes()
         {
-            Assert.Equal("0", Convert.ToBase16KString(new byte[0]));
+            Assert.Equal("0", Convert.ToBase16KString([]));
         }
     }
 
-    public class TheFromBase16KStringMethod
-    {
+	public class TheFromBase16KStringMethod
+	{
         [Fact]
         public void ConvertsKnownInput()
         {

@@ -35,8 +35,13 @@ public static partial class Convert
 		StringBuilder sb = new(len * 6 / 5);
 		_ = sb.Append(len);
 
-		int code = 0;
+		void Append(int code)
+		{
+			code += 0x5000;
+			_ = sb.Append(System.Convert.ToChar(code));
+		}
 
+		int code = 0;
 		for (int i = 0; i < len; ++i)
 		{
 			byte byteValue = inArray[i];
@@ -48,8 +53,7 @@ public static partial class Convert
 
 				case 1:
 					code |= byteValue >> 2;
-					code += 0x5000;
-					_ = sb.Append(System.Convert.ToChar(code));
+					Append(code);
 					code = (byteValue & 3) << 12;
 					break;
 
@@ -59,8 +63,7 @@ public static partial class Convert
 
 				case 3:
 					code |= byteValue >> 4;
-					code += 0x5000;
-					_ = sb.Append(System.Convert.ToChar(code));
+					Append(code);
 					code = (byteValue & 0xf) << 10;
 					break;
 
@@ -70,15 +73,13 @@ public static partial class Convert
 
 				case 5:
 					code |= byteValue >> 6;
-					code += 0x5000;
-					_ = sb.Append(System.Convert.ToChar(code));
+					Append(code);
 					code = (byteValue & 0x3f) << 8;
 					break;
 
 				case 6:
 					code |= byteValue;
-					code += 0x5000;
-					_ = sb.Append(System.Convert.ToChar(code));
+					Append(code);
 					code = 0;
 					break;
 
@@ -89,8 +90,7 @@ public static partial class Convert
 		// emit a character for remaining bits
 		if (len % 7 != 0)
 		{
-			code += 0x5000;
-			_ = sb.Append(System.Convert.ToChar(code));
+			Append(code);
 		}
 
 		return sb.ToString();

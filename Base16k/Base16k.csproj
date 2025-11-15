@@ -9,6 +9,7 @@
     <RepositoryUrl>https://github.com/JDanielSmith/Base16k</RepositoryUrl>
     <PackageProjectUrl>https://github.com/JDanielSmith/Base16k</PackageProjectUrl>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+    <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
